@@ -23,6 +23,7 @@
   },
   "scripts": {
     "test": "jest",
-    "test:staged": "jest"
+    "test:staged": "jest",
+    "check": "npm-check -s -u"
   }
 }
