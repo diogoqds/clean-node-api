@@ -1,4 +1,4 @@
-import { HttpRequest, EmailValidator } from '../../protocols'
+import { HttpRequest, EmailValidator, Authentication } from './login-protocols'
 import { LoginController } from './login'
 import {
   badRequest,
@@ -6,7 +6,6 @@ import {
   unauthorized
 } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError } from '../../errors'
-import { Authentication } from '../../../domain/usecases'
 
 interface SutTypes {
   sut: LoginController
@@ -135,5 +134,18 @@ describe('Login Controller', () => {
 
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(unauthorized())
+  })
+
+  test('should return 500 if emailValidator throws', async () => {
+    const { sut, authenticationStub } = makeSut()
+
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(() => {
+      throw new Error()
+    })
+
+    const httpRequest = makeFakeRequest()
+
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
