@@ -24,7 +24,7 @@ export class LoginController implements Controller {
     }
 
     const { email } = httpRequest.body
-    await this.emailValidator.isValid(email)
+    this.emailValidator.isValid(email)
 
     return Promise.resolve({ statusCode: 200, body: undefined })
   }
