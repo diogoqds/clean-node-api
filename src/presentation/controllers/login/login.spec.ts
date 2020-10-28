@@ -1,4 +1,8 @@
-import { HttpRequest, Authentication } from './login-protocols'
+import {
+  HttpRequest,
+  Authentication,
+  AuthenticationModel
+} from './login-protocols'
 import { LoginController } from './login'
 import {
   badRequest,
@@ -24,7 +28,7 @@ const makeFakeRequest = (): HttpRequest => ({
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (email: string, password: string): Promise<string> {
+    async auth (authentication: AuthenticationModel): Promise<string> {
       return Promise.resolve('valid_token')
     }
   }
@@ -62,7 +66,7 @@ describe('Login Controller', () => {
     const { email, password } = httpRequest.body
 
     await sut.handle(httpRequest)
-    expect(authSpy).toHaveBeenCalledWith(email, password)
+    expect(authSpy).toHaveBeenCalledWith({ email, password })
   })
 
   test('should return 401 if invalid credentials are provided', async () => {
