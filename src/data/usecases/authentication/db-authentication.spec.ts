@@ -7,16 +7,18 @@ interface SutTypes {
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
 }
 
+const makeFakeAccount = (): AccountModel => ({
+  id: 'any_id',
+  name: 'any_name',
+  email: 'any_email@email.com',
+  password: 'any_password'
+})
+
 const makeLoadAccountByEmailRepositoryStub = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub
   implements LoadAccountByEmailRepository {
     async load (email: string): Promise<AccountModel> {
-      return Promise.resolve({
-        id: 'any_id',
-        name: 'any_name',
-        email: 'any_email@email.com',
-        password: 'any_password'
-      })
+      return Promise.resolve(makeFakeAccount())
     }
   }
   return new LoadAccountByEmailRepositoryStub()
@@ -37,10 +39,11 @@ describe('DbAuthentication UseCase', () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut()
     const loadSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'load')
 
-    const email = 'any_email@email.com'
+    const { email, password } = makeFakeAccount()
+
     await sut.auth({
       email,
-      password: 'any_password'
+      password
     })
     expect(loadSpy).toHaveBeenCalledWith(email)
   })
