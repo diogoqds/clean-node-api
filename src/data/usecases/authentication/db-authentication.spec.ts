@@ -5,7 +5,7 @@ import {
   HashComparer,
   TokenGenerator,
   UpdateAccessTokenRepository
-} from '../../protocols'
+} from './db-authentication-protocols'
 import { DbAuthentication } from './db-authentication'
 
 interface SutTypes {

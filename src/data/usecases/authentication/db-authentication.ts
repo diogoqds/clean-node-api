@@ -4,7 +4,7 @@ import {
   HashComparer,
   TokenGenerator,
   UpdateAccessTokenRepository
-} from '../../protocols'
+} from './db-authentication-protocols'
 
 export class DbAuthentication implements Authentication {
   private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository
