@@ -1,4 +1,4 @@
-export * from './criptography/encrypter'
+export * from './criptography/hasher'
 export * from './criptography/hash-comparer'
 export * from './criptography/token-generator'
 export * from './db/add-account-repository'
