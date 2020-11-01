@@ -17,6 +17,6 @@ implements AddAccountRepository, LoadAccountByEmailRepository {
   async loadByEmail (email: string): Promise<AccountModel | null> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const account = await accountCollection.findOne({ email })
-    return MongoHelper.map(account) as AccountModel
+    return account && (MongoHelper.map(account) as AccountModel)
   }
 }
