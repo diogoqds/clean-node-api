@@ -21,3 +21,5 @@ services:
       - '3000:3000'
     links:
       - mongo
+    depends_on:
+      - mongo
