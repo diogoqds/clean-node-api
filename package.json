@@ -1,6 +1,6 @@
 {
   "name": "clean-node-api",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "index.js",
   "author": "Diogo Queiroz <diogo.qds97@gmail.com>",
   "license": "MIT",
