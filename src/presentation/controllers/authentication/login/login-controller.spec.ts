@@ -10,8 +10,8 @@ import {
   serverError,
   unauthorized,
   ok
-} from '../../helpers/http/http-helper'
-import { MissingParamError } from '../../errors'
+} from '../../../helpers/http/http-helper'
+import { MissingParamError } from '../../../errors'
 
 interface SutTypes {
   sut: LoginController
