@@ -45,7 +45,17 @@ implements
     role?: string
   ): Promise<AccountModel | null> {
     const accountCollection = await MongoHelper.getCollection('accounts')
-    const account = await accountCollection.findOne({ accessToken, role })
+    const account = await accountCollection.findOne({
+      accessToken,
+      $or: [
+        {
+          role
+        },
+        {
+          role: 'admin'
+        }
+      ]
+    })
     return account && (MongoHelper.map(account) as AccountModel)
   }
 }
